@@ -1,0 +1,16 @@
+{
+  "name": "Hangzhou — week-end",
+  "short_name": "Hangzhou",
+  "description": "Programme, réservations et infos du week-end à Hangzhou (28–29 nov. 2026).",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#b8322a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
