@@ -78,8 +78,8 @@
     let html = "";
     if (cur) html += `Maintenant : <b>${esc(cur.title)}</b> (jusqu'à ${cur.end})`;
     if (next) html += `${html ? "<br>" : ""}Ensuite ${next.start} : <b>${esc(next.title)}</b>`;
-    if (day.id === "dim" && now.min >= toMin("12:15") && now.min < toMin("12:50")) {
-      html += `<br>⚠️ Départ pour la gare à <b>12h50</b> au plus tard`;
+    if (day.id === "dim" && now.min >= toMin("12:15") && now.min < toMin("12:40")) {
+      html += `<br>⚠️ Départ pour la gare à <b>12h40</b> au plus tard`;
       el.classList.add("alert");
     }
     el.innerHTML = html || "Bonne soirée !";
@@ -302,7 +302,7 @@
       <div class="tot-main"><span>Total dépensé</span><b>${yuan(total)}</b></div>
       <div class="tot-grid">${state.names.map((n, i) =>
         `<div><span>${esc(n)}</span><b>${yuan(part[i])}</b></div>`).join("")}</div>
-      <p class="tot-est">Estimation : 950–1 400 ¥ par personne (hors thé et shopping)</p>`;
+      <p class="tot-est">Estimation : 800–1 100 ¥ par personne (hors thé et shopping)</p>`;
 
     $("#bud-cats-table").innerHTML = EXPENSE_CATS.map((c) => {
       const sum = state.expenses.filter((e) => e.cat === c.id).reduce((s, e) => s + e.amount, 0);

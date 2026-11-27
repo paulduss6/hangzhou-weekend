@@ -1,6 +1,6 @@
 // Service worker : tout est mis en cache pour fonctionner hors ligne en Chine.
-const CACHE = "hz-weekend-v3";
-const FILES = ["./", "index.html", "style.css?v=3", "app.js?v=3", "data.js?v=3", "manifest.webmanifest",
+const CACHE = "hz-weekend-v4";
+const FILES = ["./", "index.html", "style.css?v=4", "app.js?v=4", "data.js?v=4", "manifest.webmanifest",
   "icon-180.png", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", (e) => {
