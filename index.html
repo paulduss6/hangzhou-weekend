@@ -14,7 +14,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-180.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <header class="top">
@@ -45,11 +45,48 @@
     <section id="view-infos" class="view" aria-label="Infos">
       <h2>Infos & contraintes</h2>
       <div id="infos-list" class="stack"></div>
-      <h2>Budget estimé</h2>
-      <div class="card"><table class="budget" id="budget"></table></div>
       <h2>Phrases utiles</h2>
       <p class="lead">Touchez une phrase pour l'afficher en grand.</p>
       <div id="phrases" class="stack tight"></div>
+    </section>
+
+    <section id="view-budget" class="view" aria-label="Budget">
+      <h2>Dépenses</h2>
+      <div class="card totals" id="bud-totals"></div>
+
+      <h2>Ajouter une dépense</h2>
+      <form class="card form" id="bud-form" autocomplete="off">
+        <div class="cats" id="bud-cats" role="radiogroup" aria-label="Catégorie"></div>
+        <label>Libellé
+          <input type="text" id="bud-label" placeholder="ex. Train G Hangzhou → Shanghai" maxlength="60">
+        </label>
+        <div class="row2">
+          <label>Montant (¥)
+            <input type="text" id="bud-amount" inputmode="decimal" placeholder="0" required>
+          </label>
+          <label>Payé par
+            <select id="bud-payer"></select>
+          </label>
+        </div>
+        <label class="inline"><input type="checkbox" id="bud-split" checked> Partagé entre les 3</label>
+        <button class="btn primary wide" type="submit">＋ Ajouter</button>
+      </form>
+
+      <h2>Par catégorie</h2>
+      <div class="card"><table class="budget" id="bud-cats-table"></table></div>
+
+      <h2>Qui doit quoi</h2>
+      <div class="card" id="bud-balance"></div>
+
+      <h2>Historique</h2>
+      <div id="bud-list" class="stack tight"></div>
+
+      <h2>Prénoms</h2>
+      <div class="card form" id="bud-names"></div>
+
+      <h2>Budget estimé (par personne)</h2>
+      <div class="card"><table class="budget" id="budget"></table></div>
+      <p class="note">Les dépenses restent uniquement sur ce téléphone.</p>
     </section>
 
     <section id="view-taxi" class="view" aria-label="Chauffeur">
@@ -62,6 +99,7 @@
   <nav class="tabbar" aria-label="Navigation">
     <button data-view="prog" class="active"><span aria-hidden="true">🗓</span>Programme</button>
     <button data-view="resa"><span aria-hidden="true">✅</span>Résas</button>
+    <button data-view="budget"><span aria-hidden="true">💴</span>Budget</button>
     <button data-view="infos"><span aria-hidden="true">ℹ️</span>Infos</button>
     <button data-view="taxi"><span aria-hidden="true">🚕</span>Chauffeur</button>
   </nav>
@@ -71,7 +109,7 @@
     <div class="big" id="overlay-body"></div>
   </div>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

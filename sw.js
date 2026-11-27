@@ -1,6 +1,6 @@
 // Service worker : tout est mis en cache pour fonctionner hors ligne en Chine.
-const CACHE = "hz-weekend-v2";
-const FILES = ["./", "index.html", "style.css", "app.js", "data.js", "manifest.webmanifest",
+const CACHE = "hz-weekend-v3";
+const FILES = ["./", "index.html", "style.css?v=3", "app.js?v=3", "data.js?v=3", "manifest.webmanifest",
   "icon-180.png", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", (e) => {
@@ -15,7 +15,7 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request.url, { cache: "no-cache" })
       .then((res) => { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(e.request, copy)); return res; })
       .catch(() => caches.match(e.request, { ignoreSearch: true }).then((r) => r || caches.match("index.html")))
   );

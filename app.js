@@ -251,6 +251,119 @@
     if (id === "hotel") { renderTaxi(); renderTimeline(); }
   });
 
+  // ---------- Budget ----------
+  state.expenses = state.expenses || [];
+  state.names = state.names || ["Moi", "Ami 1", "Ami 2"];
+  let budCat = EXPENSE_CATS[0].id;
+  let pendingDelete = null;
+  const yuan = (n) => (Math.round(n * 100) / 100).toLocaleString("fr-FR", { maximumFractionDigits: 2 }) + " ¥";
+  const catOf = (id) => EXPENSE_CATS.find((c) => c.id === id) || EXPENSE_CATS[EXPENSE_CATS.length - 1];
+
+  function shares() {
+    // part de chacun (dépenses partagées / 3 + dépenses perso) et soldes
+    const part = [0, 0, 0], paid = [0, 0, 0];
+    for (const e of state.expenses) {
+      paid[e.payer] += e.amount;
+      if (e.split) part.forEach((_, i) => { part[i] += e.amount / 3; });
+      else part[e.payer] += e.amount;
+    }
+    return { part, net: paid.map((p, i) => p - part[i]) };
+  }
+
+  function settle(net) {
+    const cred = [], debt = [];
+    net.forEach((v, i) => { if (v > 0.5) cred.push([i, v]); else if (v < -0.5) debt.push([i, -v]); });
+    const out = [];
+    let a = 0, b = 0;
+    while (a < debt.length && b < cred.length) {
+      const x = Math.min(debt[a][1], cred[b][1]);
+      out.push([debt[a][0], cred[b][0], x]);
+      debt[a][1] -= x; cred[b][1] -= x;
+      if (debt[a][1] < 0.5) a++;
+      if (cred[b][1] < 0.5) b++;
+    }
+    return out;
+  }
+
+  function renderBudgetForm() {
+    $("#bud-cats").innerHTML = EXPENSE_CATS.map((c) =>
+      `<button type="button" role="radio" aria-checked="${c.id === budCat}" data-cat="${c.id}">${c.icon} ${esc(c.label)}</button>`).join("");
+    const sel = $("#bud-payer"), cur = sel.value;
+    sel.innerHTML = state.names.map((n, i) => `<option value="${i}">${esc(n)}</option>`).join("");
+    if (cur !== "") sel.value = cur;
+    $("#bud-names").innerHTML = state.names.map((n, i) =>
+      `<label>Voyageur ${i + 1}<input type="text" data-name="${i}" value="${esc(n)}" maxlength="20"></label>`).join("");
+  }
+
+  function renderBudget() {
+    const total = state.expenses.reduce((s, e) => s + e.amount, 0);
+    const { part, net } = shares();
+    $("#bud-totals").innerHTML = `
+      <div class="tot-main"><span>Total dépensé</span><b>${yuan(total)}</b></div>
+      <div class="tot-grid">${state.names.map((n, i) =>
+        `<div><span>${esc(n)}</span><b>${yuan(part[i])}</b></div>`).join("")}</div>
+      <p class="tot-est">Estimation : 950–1 400 ¥ par personne (hors thé et shopping)</p>`;
+
+    $("#bud-cats-table").innerHTML = EXPENSE_CATS.map((c) => {
+      const sum = state.expenses.filter((e) => e.cat === c.id).reduce((s, e) => s + e.amount, 0);
+      const est = c.est[1] ? `<small>est. ${c.est[0] === c.est[1] ? c.est[0] : c.est[0] + "–" + c.est[1]} ¥/pers.</small>` : "";
+      return `<tr><td>${c.icon} ${esc(c.label)}${est}</td><td>${yuan(sum)}<small>${yuan(sum / 3)}/pers.</small></td></tr>`;
+    }).join("");
+
+    const tr = settle(net);
+    $("#bud-balance").innerHTML = tr.length
+      ? tr.map(([d, c, x]) => `<p class="settle"><b>${esc(state.names[d])}</b> doit <b>${yuan(x)}</b> à <b>${esc(state.names[c])}</b></p>`).join("")
+      : `<p class="settle muted">Tout le monde est à l'équilibre.</p>`;
+
+    const list = [...state.expenses].sort((a, b) => b.ts - a.ts);
+    $("#bud-list").innerHTML = list.length ? list.map((e) => {
+      const c = catOf(e.cat);
+      const d = new Date(e.ts).toLocaleString("fr-FR", { timeZone: TRIP.tz, weekday: "short", hour: "2-digit", minute: "2-digit" });
+      return `<div class="card exp">
+        <span class="ico" aria-hidden="true">${c.icon}</span>
+        <div class="exp-main"><div class="exp-l">${esc(e.label || c.label)}</div>
+          <div class="exp-m">${esc(state.names[e.payer])} · ${e.split ? "partagé ÷3" : "perso"} · ${esc(d)}</div></div>
+        <b class="exp-a">${yuan(e.amount)}</b>
+        <button class="del ${pendingDelete === e.id ? "confirm" : ""}" data-del="${e.id}" aria-label="Supprimer">${pendingDelete === e.id ? "Supprimer ?" : "✕"}</button>
+      </div>`;
+    }).join("") : `<p class="lead">Aucune dépense pour l'instant.</p>`;
+  }
+
+  $("#bud-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const raw = $("#bud-amount").value.replace(/\s/g, "").replace(",", ".");
+    const amount = Number(raw);
+    if (!raw || !isFinite(amount) || amount <= 0) { $("#bud-amount").focus(); $("#bud-amount").classList.add("bad"); return; }
+    $("#bud-amount").classList.remove("bad");
+    state.expenses.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      cat: budCat, label: $("#bud-label").value.trim(), amount: Math.round(amount * 100) / 100,
+      payer: Number($("#bud-payer").value) || 0, split: $("#bud-split").checked, ts: Date.now(),
+    });
+    save();
+    $("#bud-label").value = ""; $("#bud-amount").value = "";
+    renderBudget();
+  });
+
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.cat) { budCat = t.dataset.cat; renderBudgetForm(); return; }
+    if (t.dataset.del) {
+      if (pendingDelete === t.dataset.del) {
+        state.expenses = state.expenses.filter((x) => x.id !== t.dataset.del);
+        pendingDelete = null; save();
+      } else pendingDelete = t.dataset.del;
+      renderBudget();
+    }
+  });
+
+  document.addEventListener("change", (e) => {
+    if (e.target.dataset.name === undefined) return;
+    state.names[Number(e.target.dataset.name)] = e.target.value.trim() || `Voyageur ${Number(e.target.dataset.name) + 1}`;
+    save(); renderBudgetForm(); renderBudget();
+  });
+
   // ---------- Démarrage ----------
   $("#subtitle").textContent = TRIP.subtitle;
   renderDayTabs();
@@ -258,6 +371,8 @@
   renderResa();
   renderInfos();
   renderTaxi();
+  renderBudgetForm();
+  renderBudget();
   renderStatus();
   try { const v = sessionStorage.getItem("hz-view"); if (v) showView(v); } catch {}
 

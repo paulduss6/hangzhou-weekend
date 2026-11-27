@@ -263,3 +263,13 @@ const PHRASES = [
   ["Merci", "谢谢", "xièxie"],
   ["Nous sommes 3", "我们三个人", "wǒmen sān gè rén"],
 ];
+
+// Catégories de dépenses (estimation par personne pour comparer)
+const EXPENSE_CATS = [
+  { id: "train",  icon: "🚄", label: "Train & métro",    est: [80, 95] },
+  { id: "hotel",  icon: "🏨", label: "Hôtel",            est: [170, 300] },
+  { id: "ride",   icon: "🚕", label: "Hello ride / taxi", est: [250, 400] },
+  { id: "visit",  icon: "🎟", label: "Visites",          est: [95, 95] },
+  { id: "food",   icon: "🍜", label: "Repas & snacks",   est: [350, 550] },
+  { id: "other",  icon: "🛍", label: "Autre (thé…)",     est: [0, 0] },
+];

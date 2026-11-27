@@ -180,7 +180,7 @@ details[open] .ttl::after { content: "－"; }
 /* Tab bar */
 .tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   background: var(--surface); border-top: 1px solid var(--line);
   padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
 }
@@ -208,3 +208,46 @@ details[open] .ttl::after { content: "－"; }
 .big .ask { font-size: 1.4rem; margin-top: 22px; color: #b8322a; font-weight: 700; }
 .big .fr { font-size: 1rem; color: #666; margin-top: 18px; }
 .big .py { font-size: 1.1rem; color: #666; margin-top: 10px; }
+
+/* Budget */
+.form { display: grid; gap: 10px; }
+.form label { font-size: .78rem; color: var(--muted); display: grid; gap: 3px; }
+.form label.inline { display: flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--ink); }
+.form label.inline input { width: 20px; height: 20px; accent-color: var(--celadon); }
+.form input[type="text"], .form select {
+  font: inherit; font-size: 16px; padding: 9px 10px; border-radius: 9px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); width: 100%; min-width: 0;
+}
+.form input.bad { border-color: var(--seal); box-shadow: 0 0 0 2px var(--seal-soft); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cats { display: flex; flex-wrap: wrap; gap: 6px; }
+.cats button {
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px;
+  padding: 6px 11px; font-size: .82rem; cursor: pointer;
+}
+.cats button[aria-checked="true"] { background: var(--celadon); border-color: var(--celadon); color: #fff; font-weight: 600; }
+.btn.wide { width: 100%; justify-content: center; padding: 11px; font-size: 1rem; }
+
+.totals .tot-main { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.totals .tot-main b { font-size: 1.6rem; color: var(--seal); font-variant-numeric: tabular-nums; }
+.tot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.tot-grid div { background: var(--bg); border-radius: 10px; padding: 7px 8px; min-width: 0; }
+.tot-grid span { display: block; font-size: .75rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tot-grid b { font-variant-numeric: tabular-nums; font-size: .95rem; }
+.tot-est { margin: 10px 0 0; font-size: .78rem; color: var(--muted); }
+
+.budget small { display: block; font-size: .72rem; color: var(--muted); font-weight: 400; }
+.settle { margin: 4px 0; font-size: .93rem; }
+.settle.muted { color: var(--muted); }
+
+.exp { display: grid; grid-template-columns: 26px 1fr auto auto; gap: 8px; align-items: center; padding: 10px 12px; }
+.exp .ico { font-size: 1.15rem; }
+.exp-main { min-width: 0; }
+.exp-l { font-weight: 600; font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.exp-m { font-size: .75rem; color: var(--muted); }
+.exp-a { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.del {
+  border: 0; background: var(--bg); color: var(--muted); border-radius: 8px; min-width: 32px; height: 32px;
+  cursor: pointer; font-size: .85rem; padding: 0 8px;
+}
+.del.confirm { background: var(--seal); color: #fff; font-weight: 700; font-size: .75rem; }
