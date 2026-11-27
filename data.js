@@ -12,7 +12,7 @@ const TRIP = {
 const PLACES = {
   lingyin:  { fr: "Lingyin & Feilai Feng", zh: "灵隐寺 · 飞来峰景区", addr: "杭州市西湖区灵隐路法云弄1号", hint: "Entrée principale du site de Lingyin" },
   longjing: { fr: "Village de Longjing", zh: "龙井村", addr: "杭州市西湖区龙井路 龙井村", hint: "Village du thé Longjing" },
-  sudi:     { fr: "Digue Su (entrée nord)", zh: "苏堤北口（曲院风荷 / 岳庙附近）", addr: "杭州市西湖区北山街 苏堤北入口", hint: "Arrivée samedi matin" },
+  sudi:     { fr: "Digue Su (entrée nord)", zh: "北山街 / 苏堤（路口）", addr: "杭州市西湖区北山街与苏堤交叉口（苏堤北口，岳庙附近）", hint: "Dans Hello : « Route du Nord / Digue de Su (carrefour) »" },
   huagang:  { fr: "Parc Huagang (sud de la digue Su)", zh: "花港观鱼公园", addr: "杭州市西湖区西山路 花港观鱼", hint: "Fin de la digue Su, départ vers Longjing" },
   leifeng:  { fr: "Pagode Leifeng", zh: "雷峰塔景区", addr: "杭州市西湖区南山路15号", hint: "Pagode Leifeng" },
   waipojia: { fr: "Restaurant Waipojia (湖滨)", zh: "外婆家（湖滨银泰in77店）", addr: "杭州市上城区东坡路 湖滨银泰in77", hint: "Dîner samedi" },
@@ -222,7 +222,7 @@ const BOOKINGS = [
     how: "App 12306 ou Trip.com, avec les 3 passeports. Départ entre 13h45 et 14h15 depuis Hangzhou Est (杭州东) ou la gare de Hangzhou (杭州站). Arrivée Shanghai Hongqiao (上海虹桥).",
     price: "2nde classe ~73–87 ¥/pers.", fields: ["N° de train", "Heure de départ", "Gare de départ", "Voiture / places"] },
   { id: "ride1", urgent: true, title: "Hello ride Suzhou → digue Su, sam. 6h", when: "Vendredi au plus tard",
-    how: "App Hello (哈啰) → course interurbaine réservée. Destination : 苏堤北口 (entrée nord de la digue Su, près de 岳庙). Tôt le matin, il peut être difficile de trouver un chauffeur.",
+    how: "App Hello (哈啰) → course interurbaine réservée. Destination dans Hello : « Route du Nord / Digue de Su (carrefour) » (北山街/苏堤 路口). Plan B : « Parking côté nord », à 60 m. Tôt le matin, il peut être difficile de trouver un chauffeur.",
     price: "~400–650 ¥ la voiture", fields: ["Chauffeur / plaque", "Prix"] },
   { id: "ride2", urgent: false, title: "Hello ride Shanghai → Suzhou, dim. soir", when: "Avant dimanche",
     how: "App Hello → course interurbaine réservée. Départ : 上海亚太盛汇广场 (AP Plaza). Heure à choisir selon votre programme à Shanghai.",
