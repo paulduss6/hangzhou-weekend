@@ -72,7 +72,7 @@ const DAYS = [
         place: "lingyin",
         price: "Gratuit (réservation nominative)",
         desc: "Colline calcaire avec plus de 300 sculptures bouddhiques taillées dans la roche et dans les grottes (Xe–XIVe s.), dont le célèbre Bouddha rieur. Sentiers et petites grottes.",
-        warn: "PASSEPORT PHYSIQUE obligatoire pour les 3 (photo ou photocopie refusées). Créneau de l'après-midi réservé dans le mini-programme 杭州灵隐飞来峰 : le plus tôt possible, idéalement 13h.",
+        warn: "PASSEPORT PHYSIQUE obligatoire pour les 3 (photo ou photocopie refusées). Créneau réservé : 13h (mini-programme 杭州灵隐飞来峰).",
       },
       {
         start: "14:15", end: "15:30", kind: "culture",
@@ -95,7 +95,7 @@ const DAYS = [
         place: "leifeng",
         price: "40 ¥",
         desc: "Pagode de 975, effondrée en 1924, reconstruite en 2002 au-dessus des ruines. À l'intérieur : les fondations d'origine sous verre et des sculptures sur bois de la légende du Serpent blanc. En haut (ascenseur) : panorama sur le lac au coucher du soleil, vers 16h58.",
-        warn: "Billet en ligne : mini-programme WeChat 雷峰塔. Si votre créneau Lingyin est après 14h, Leifeng passe en fin de journée : ne visitez que le sommet pour le coucher du soleil.",
+        warn: "Billet en ligne : mini-programme WeChat 雷峰塔.",
       },
       {
         start: "17:30", end: "18:45", kind: "rest",
@@ -215,8 +215,8 @@ const BOOKINGS = [
   { id: "hotel", urgent: true, title: "Hôtel samedi soir", when: "Maintenant",
     how: "Trip.com · rive est du lac (Hubin / Nanshan Rd), près de Leifeng. Vérifier « accepte les clients étrangers ». Chambre triple ou 2 chambres.",
     price: "~500–900 ¥ la nuit pour 3", fields: ["Nom de l'hôtel", "Adresse en chinois", "N° de réservation"] },
-  { id: "lingyin", urgent: true, title: "Lingyin / Feilai Feng — créneau samedi 13h", when: "Maintenant (plus possible le jour même)",
-    how: "Mini-programme Alipay ou WeChat 「杭州灵隐飞来峰」. Réservation nominative avec les passeports des 3. Seule l'après-midi est disponible : prendre le créneau le plus tôt possible (idéalement 13h).",
+  { id: "lingyin", urgent: true, title: "Lingyin / Feilai Feng — samedi 13h", when: "Maintenant (plus possible le jour même)",
+    how: "Mini-programme Alipay ou WeChat 「杭州灵隐飞来峰」. Réservation nominative avec les passeports des 3. Créneau obtenu : 13h.",
     price: "Gratuit", fields: ["Créneau", "Confirmation"] },
   { id: "train", urgent: true, title: "Train G Hangzhou → Shanghai Hongqiao, dim. ~14h", when: "Maintenant (le dimanche après-midi se remplit vite)",
     how: "App 12306 ou Trip.com, avec les 3 passeports. Départ entre 13h45 et 14h15 depuis Hangzhou Est (杭州东) ou la gare de Hangzhou (杭州站). Arrivée Shanghai Hongqiao (上海虹桥).",
