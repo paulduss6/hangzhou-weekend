@@ -78,8 +78,8 @@
     let html = "";
     if (cur) html += `Maintenant : <b>${esc(cur.title)}</b> (jusqu'à ${cur.end})`;
     if (next) html += `${html ? "<br>" : ""}Ensuite ${next.start} : <b>${esc(next.title)}</b>`;
-    if (day.id === "dim" && now.min >= toMin("12:30") && now.min < toMin("13:15")) {
-      html += `<br>⚠️ Départ pour Shanghai à <b>13h15</b> au plus tard`;
+    if (day.id === "dim" && now.min >= toMin("12:15") && now.min < toMin("12:50")) {
+      html += `<br>⚠️ Départ pour la gare à <b>12h50</b> au plus tard`;
       el.classList.add("alert");
     }
     el.innerHTML = html || "Bonne soirée !";

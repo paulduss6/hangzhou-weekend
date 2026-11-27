@@ -1,5 +1,5 @@
 // Service worker : tout est mis en cache pour fonctionner hors ligne en Chine.
-const CACHE = "hz-weekend-v1";
+const CACHE = "hz-weekend-v2";
 const FILES = ["./", "index.html", "style.css", "app.js", "data.js", "manifest.webmanifest",
   "icon-180.png", "icon-192.png", "icon-512.png"];
 
